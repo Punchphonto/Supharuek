@@ -17,6 +17,13 @@
           <p class="login-box-msg">Sign in to start your session</p>
     
           <form action="/login" method="POST">
+            <div class="input-group mb-3 text-center">
+                {% with messages = get_flashed_messages() %}
+                  {% for message in messages %}
+                    <span class="btn btn-block btn-outline-danger"><i class="fas fa-ban"></i> {{ message }}</span>
+                  {% endfor %}  
+              {% endwith %}     
+            </div>
             <div class="input-group mb-3">
               <input name="username" id="username"  class="form-control" placeholder="Email">
               <div class="input-group-append">

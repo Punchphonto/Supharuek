@@ -98,10 +98,10 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and user.verify_password(password):
             login_user(user)
-            flash("Successful Login")
             return redirect('/add')
         else:
-            return 'Username or password is not correct'
+             flash("Invalid Login please try again")
+             return redirect('/login')
     else:
         pass
     return render_template('Leave/login_page.html' )
