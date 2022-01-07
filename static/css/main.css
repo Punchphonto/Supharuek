@@ -1,0 +1,45 @@
+body, html {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.content {
+    border: 0.5px black;
+    box-shadow: 1px 0px 10px 0px gray;
+    margin: 5vh;
+    border-radius: 5px;
+    padding: 2vh;
+}
+
+.logindiv{
+  padding: 7vh;
+}
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+.form {
+    margin-top: 20px;
+}
+
+#content {
+    width: 70%;
+}
+
+.application_fram{
+  padding: 2vh;
+}
