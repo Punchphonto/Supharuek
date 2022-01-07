@@ -8,22 +8,21 @@
 
 <div class="application_fram">
 <div class="card">
-    <div class="card-header bg-secondary">
-        <h3>Leave create <span class="badge bg-primary" >Online</span> 
+    <div class="card-header bg-primary">
+        <h4>Leave create <span class="badge bg-light" >Online</span> 
           
-          HI <b> {{ current_user.username }}</b>
+          welcome ! <b> {{ current_user.username }}</b>
          
-        </h3>
+        </h4>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-9">
                 <table class="table table-bordered" id="leav_table">
                    <thead>
-                     <th>Name</th>
-                     <th>Leave detail</th>
-                     <th>Date leave</th>
-                     <th>Request date</th>
+                     <th width="20%"> Name</th>
+                     <th width="45%">Leave detail</th>
+                     <th width="15%">Date leave</th>                  
                      <th>Action</th>
                    </thead>
                    <tbody>
@@ -31,11 +30,10 @@
                     <tr>
                         <td>{{ leave.name }}</td>
                         <td>{{ leave.detail }}</td>
-                        <td>{{ leave.date_request }}</td>
-                        <td>{{ leave.date_create }}</td>
+                        <td>{{ leave.date_request }}</td>                    
                         <td class="text-center">
                           <a class="btn btn-danger" href="/delete/{{leave.id}}"><i class="fas fa-trash"></i></a>
-                          <a class="btn btn-primary" href="/update/{{leave.id}}"><i class="fas fa-upload"></i> update</a>
+                          <a class="btn btn-success" href="/update/{{leave.id}}"><i class="fas fa-upload"></i> update</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -51,20 +49,20 @@
                     </div>
                     <div class="card-body">
                         <form action="/add" method="POST" > 
-                            <div class="card-body">
+                           
                               <div class="form-group">
                                 <label for="exampleInputEmail1">Name</label>
                                 <input type="text"  name="name" id="name" class="form-control"  value="{{ current_user.username }}" readonly>
                               </div>
                               <div class="form-group">
                                 <label for="exampleInputPassword1">Leave Detail</label>
-                                <input  class="form-control" name="detail" id="detail" placeholder="Fill Detail..." required>
+                                <textarea  class="form-control" name="detail" id="detail" required></textarea>
                               </div>
                               <div class="form-group">
                                 <label for="exampleInputPassword1">Leave Dadte</label>
                                 <input type="date" name="date" id="date" class="form-control" required>
                               </div> 
-                            </div>
+                          
                             <div class="card-footer">
                               <button type="submit" class="btn btn-primary">Submit</button>
                             </div>

@@ -115,7 +115,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(username=username, password=password).first()
         if user and user.verify_password(password):
             login_user(user)
             return redirect('/add')
