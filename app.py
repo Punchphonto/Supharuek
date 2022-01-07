@@ -87,7 +87,27 @@ def delete(id):
         return redirect('/add')
     except:
         return 'There was a problem deleting that task'
-    
+
+
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    task = Leave.query.get_or_404(id)
+
+    if request.method == 'POST':
+        task.detail = request.form['detail']
+        task.date_request = request.form['date']
+
+        try:
+            db.session.commit()
+            return redirect('/add')
+        except:
+            return 'There was an issue updating your task'
+
+    else:
+        return render_template('Leave/update_page.html', task=task)
+
+
+
 
 @app.route('/login',methods=['POST', 'GET'])
 def login():

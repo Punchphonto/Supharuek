@@ -1,0 +1,37 @@
+{% extends 'Leave/top_base.html' %}
+
+{% block head %}
+<title>update</title>
+{% endblock %}
+
+
+{% block body %}
+
+<body>
+    <div class="application_fram">
+     <div class="card">
+       <div class="card-header bg-primary">
+           <h4>Use this from to update leave</h4>
+        </div>
+        <div class="card-body">
+            <form action="/update/{{task.id}}" method="POST" > 
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Update Leave Detail</label>
+                    <input  class="form-control" name="detail" id="detail" value="{{task.detail}}" placeholder="Fill Detail..." required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Update Leave Dadte</label>
+                    <input type="date" name="date" id="date" class="form-control col-5" required>
+                  </div> 
+                </div>
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

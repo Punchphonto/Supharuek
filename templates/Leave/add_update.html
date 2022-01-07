@@ -24,7 +24,7 @@
                      <th>Leave detail</th>
                      <th>Date leave</th>
                      <th>Request date</th>
-                     <th width="5%">Action</th>
+                     <th>Action</th>
                    </thead>
                    <tbody>
                     {% for leave in leaves %}
@@ -33,8 +33,9 @@
                         <td>{{ leave.detail }}</td>
                         <td>{{ leave.date_request }}</td>
                         <td>{{ leave.date_create }}</td>
-                        <td>
-                          <a class="btn btn-block btn-danger" href="/delete/{{leave.id}}"><i class="fas fa-trash"></i></a>
+                        <td class="text-center">
+                          <a class="btn btn-danger" href="/delete/{{leave.id}}"><i class="fas fa-trash"></i></a>
+                          <a class="btn btn-primary" href="/update/{{leave.id}}"><i class="fas fa-upload"></i> update</a>
                         </td>
                     </tr>
                 {% endfor %}
