@@ -121,7 +121,6 @@ def login():
             return redirect('/add')
         else:
              flash("Invalid Login please try again")
-             return redirect('/login')
     else:
         pass
     return render_template('Leave/login_page.html' )
