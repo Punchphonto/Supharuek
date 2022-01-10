@@ -1,3 +1,4 @@
+from os import RTLD_NODELETE
 from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, date
@@ -41,7 +42,7 @@ class Leave(db.Model):
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False, unique=True)
-    password = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=True)
     def __init__(self, username, password, email):
         self.username = username
@@ -107,6 +108,21 @@ def update(id):
         return render_template('Leave/update_page.html', task=task)
 
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['user_name']
+        password = request.form['pass_word']
+        mail = request.form['mail']
+        newuser = User(username=username, password=password, email=mail)
+        try:
+            db.session.add(newuser)
+            db.session.commit()
+            return redirect('/register')
+        except:
+            return  'Username is already use'
+
+    return render_template('Leave/add_user.html')
 
 
 @app.route('/login',methods=['POST', 'GET'])

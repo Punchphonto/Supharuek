@@ -32,7 +32,7 @@
                         <td>{{ leave.detail }}</td>
                         <td>{{ leave.date_request }}</td>                    
                         <td class="text-center">
-                          <a class="btn btn-danger" href="/delete/{{leave.id}}"><i class="fas fa-trash"></i></a>
+                          <a class="btn btn-danger" id="{{leave.id}}" href="/delete/{{leave.id}}"><i class="fas fa-trash"></i></a>
                           <a class="btn btn-success" href="/update/{{leave.id}}"><i class="fas fa-upload"></i> update</a>
                         </td>
                     </tr>
@@ -40,6 +40,7 @@
 
                    </tbody>
                 </table>
+            
             </div>
             <div class="col-3">
                 <div class="card card-primary">
@@ -79,7 +80,13 @@
     
 </div>
 </div>
+{% for leave in leaves %}
 <script>
   $("#leav_table").DataTable()
+  
+  $('body').on('click', '#{{leave.id}}', function(){
+    alert('Are you sure to delete task')
+  })
 </script>
+{% endfor %}
 {% endblock %}

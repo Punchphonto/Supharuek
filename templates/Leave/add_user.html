@@ -1,0 +1,42 @@
+{% extends 'Leave/top_base.html' %}
+
+{% block head %}
+<title>add Leave</title>
+{% endblock %}
+
+
+{% block body %}
+
+<body>
+    <div class="application_fram">
+     <div class="card">
+       <div class="card-header bg-primary">
+           <h4>Register form</h4>
+        </div>
+        <div class="card-body">
+            <form action="/register" method="POST" > 
+               
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Username</label>
+                    <input  class="form-control" name="user_name" id="user_name" value=""  required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" name="pass_word" id="pass_word" value=""  required>
+                  </div>
+                  <div class="form-group mb-4">
+                    <label for="exampleInputPassword1">E-mail</label>
+                    <input type="email" name="mail" id="mail" class="form-control" value="" required>
+                  </div> 
+           
+                  <button type="submit" class="btn btn-primary">Submit</button>
+             
+              </form>
+
+        </div>
+    </div>
+</div>
+</body>
+
+
+{% endblock %}
