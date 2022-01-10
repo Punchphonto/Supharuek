@@ -1,21 +1,13 @@
-from os import RTLD_NODELETE
-from flask import Flask, render_template, url_for, request, redirect, flash
-from flask_sqlalchemy import SQLAlchemy
+from Leave import app
 from datetime import datetime, date
+from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
-from flask_migrate import Migrate
 from flask_wtf import FlaskForm
-from flask_bcrypt import Bcrypt
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
+from Leave.models import*
 
 
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-app.config['SECRET_KEY'] = 'thisisasecretkey'
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -24,36 +16,6 @@ login_manager.login_view = "login"
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
-
-
-
-class Leave(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=True)
-    detail = db.Column(db.String(500), nullable=True)
-    date_request = db.Column(db.String(100), nullable=True)
-    date_create = db.Column(db.DateTime, default=datetime.utcnow)
-    remark = db.Column(db.String(500), nullable=True)
-
-    def __repr__ (self):
-        return '<Leave %r>' % self.id
-
-class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), nullable=False, unique=True)
-    password = db.Column(db.String(50), nullable=False, unique=True)
-    email = db.Column(db.String(100), nullable=True)
-    def __init__(self, username, password, email):
-        self.username = username
-        self.password = password
-        self.email = email
-    def __repr__(self):
-        return '<User %r>' % self.username
-    def verify_password(self, pwd):
-        return (self.password, pwd)
-
-
 
 
 @app.route('/add', methods=['POST', 'GET'])
@@ -146,6 +108,3 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('login'))
-
-if __name__ == "__main__":
-    app.run(debug=True)
