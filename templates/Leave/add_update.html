@@ -32,7 +32,7 @@
                         <td>{{ leave.detail }}</td>
                         <td>{{ leave.date_request }}</td>                    
                         <td class="text-center">
-                          <a class="btn btn-danger" id="{{leave.id}}" href="/delete/{{leave.id}}"><i class="fas fa-trash"></i></a>
+                          <button class="btn btn-danger" id="{{leave.id}}"><i class="fas fa-trash"></i></button>
                           <a class="btn btn-success" href="/update/{{leave.id}}"><i class="fas fa-upload"></i> update</a>
                         </td>
                     </tr>
@@ -85,7 +85,23 @@
   $("#leav_table").DataTable()
   
   $('body').on('click', '#{{leave.id}}', function(){
-    alert('Delete Complete')
+    $.confirm({
+    title: '<i class="fas fa-trash text-danger"></i> Do you sure!',
+    content: 'Click delete to confirm',
+    type: 'red',
+    typeAnimated: true,
+    buttons: {
+        tryAgain: {
+            text: 'Delete',
+            btnClass: 'btn-red',
+            action: function(){
+              window.location = '/delete/{{leave.id}}';
+            }
+           },
+           close: function () {
+           }
+      }
+    });
   })
 
 
