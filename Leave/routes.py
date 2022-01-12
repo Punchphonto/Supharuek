@@ -3,9 +3,9 @@ from datetime import datetime, date
 from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
-from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from Leave.models import*
+from Leave.forms import*
 
 
 
@@ -108,3 +108,23 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+
+@app.route('/addwork', methods=['GET', 'POST'])
+@login_required
+def register_page():
+    form = Addworkform()
+    work = Woringlist.query.order_by(Woringlist.id).all()
+    if form.validate_on_submit():
+        work_to_create = Woringlist(workname=form.workname.data,
+                              workdetail=form.workdetail.data,
+                              workplace=form.workplace.data,
+                              workdate=form.workdate.data,)
+        db.session.add(work_to_create)
+        db.session.commit()
+        return redirect('/addwork')
+    if form.errors != {}: #If there are not errors from the validations
+        for err_msg in form.errors.values():
+            print(f'There was an error with creating a user: {err_msg}')
+    return render_template('Leave/workadd.html', form=form, work=work)
+

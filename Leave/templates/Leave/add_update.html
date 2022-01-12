@@ -27,6 +27,7 @@
                    </thead>
                    <tbody>
                     {% for leave in leaves %}
+                      {% if leave.name ==  current_user.username %}
                     <tr>
                         <td>{{ leave.name }}</td>
                         <td>{{ leave.detail }}</td>
@@ -36,6 +37,7 @@
                           <a class="btn btn-success" href="/update/{{leave.id}}"><i class="fas fa-upload"></i> update</a>
                         </td>
                     </tr>
+                    {% endif %}
                 {% endfor %}
 
                    </tbody>

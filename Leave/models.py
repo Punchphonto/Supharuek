@@ -1,7 +1,10 @@
 
 from Leave import db
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
-from datetime import datetime
+from datetime import datetime, date
+
+
+
 
 class Leave(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -27,3 +30,14 @@ class User(db.Model, UserMixin):
         return '<User %r>' % self.username
     def verify_password(self, pwd):
         return (self.password, pwd)
+
+class Woringlist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    workname = db.Column(db.String(100), nullable=True)
+    workdetail = db.Column(db.Text, nullable=True)
+    workplace = db.Column(db.String(100), nullable=True)
+    workdate = db.Column(db.Date, nullable=True)
+    remark = db.Column(db.String(100), nullable=True)
+
+    def __repr__ (self):
+        return '<Work %r>' % self.id

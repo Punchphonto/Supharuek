@@ -1,0 +1,90 @@
+{% extends 'Leave/top_base.html' %}
+
+{% block head %}
+<title>update</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="application_fram">
+   <div class="row">
+    <div class="col-4">
+     <div class="card ">
+        <div class="card-header bg-primary">
+            <h4>Add your work</h4>
+         </div>
+         <div class="card-body">
+            <form method="POST" >
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.workname.label() }}
+                    {{ form.workname(class="form-control") }}
+                  
+                </div>
+                <div class="form-group">
+                    {{ form.workdetail.label() }}
+                    {{ form.workdetail(class="form-control") }}
+                   
+                </div>
+                <div class="form-group">
+                    {{ form.workplace.label() }}
+                    {{ form.workplace(class="form-control") }}
+                    
+                </div>
+                <div class="form-group">
+                    {{ form.workdate.label() }}
+                    {{ form.workdate(class="form-control") }}
+                </div>
+                   
+                <button type="submit" class="btn btn-success ">
+                    <i class="fas fa-calendar-plus"></i> 
+                    Submit your job
+                </button>
+              
+            </form>
+ 
+         </div>
+     </div>
+    </div>
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header bg-warning">
+                <h4><i class="fas fa-th-list"></i>&nbsp; Working List</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered" id="job_table">
+                    <thead>
+                      <th>#</th> 
+                      <th width="20%"> Job</th>
+                      <th width="45%">Detail</th>
+                      <th width="15%">Date</th>
+                      <th width="15%">place</th>                     
+                    </thead>
+                    <tbody>
+                     {% for job in work %}
+                   
+                     <tr>
+                         <td>{{ loop.index }}</td>
+                         <td>{{ job.workname }}</td>
+                         <td>{{ job.workdetail }}</td>
+                         <td>{{ job.workdate }}</td>       
+                         <td>{{ job.workplace }}</td>                     
+                     </tr>
+      
+                 {% endfor %}
+ 
+                    </tbody>
+                 </table>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+</div>
+<script>
+     $("#job_table").DataTable()
+</script>
+{% endblock %}
