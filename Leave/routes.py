@@ -110,21 +110,43 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/addwork', methods=['GET', 'POST'])
+@app.route('/additem', methods=['GET', 'POST'])
 @login_required
 def register_page():
-    form = Addworkform()
-    work = Woringlist.query.order_by(Woringlist.id).all()
+    form = Additemform()
+    items = Itemlist.query.order_by(Itemlist.id).all()
     if form.validate_on_submit():
-        work_to_create = Woringlist(workname=form.workname.data,
-                              workdetail=form.workdetail.data,
-                              workplace=form.workplace.data,
-                              workdate=form.workdate.data,)
+        work_to_create = Itemlist(itemname=form.item_name.data,
+                              rent_code=form.item_code.data,
+                              description =form.description.data,
+                              psc =form.psc.data,)
         db.session.add(work_to_create)
         db.session.commit()
-        return redirect('/addwork')
+        return redirect('/additem')
     if form.errors != {}: #If there are not errors from the validations
         for err_msg in form.errors.values():
             print(f'There was an error with creating a user: {err_msg}')
-    return render_template('Leave/workadd.html', form=form, work=work)
+    return render_template('Leave/workadd.html', form=form, items=items)
 
+
+@app.route('/rent', methods=['GET', 'POST'])
+@login_required
+def rent_page():
+    stock_item = Itemlist.query.order_by(Itemlist.id).all()
+    if request.method == "POST":
+         item_id = request.form.get('item_id')
+         rent_pcs = int(request.form.get('rent_pcs'))
+         itemtrent = Itemlist.query.filter_by(id=item_id).first()
+         pcsrent = itemtrent.psc
+         pcs_update = Itemlist.query.get_or_404(item_id)
+         if pcsrent >= rent_pcs:
+            pcs_update.psc = pcsrent - rent_pcs
+            try:
+                db.session.commit()
+                return redirect('/rent')
+            except:
+                   return  'You have a problem to rent'
+       
+    
+
+    return render_template('Leave/rent_page.html', stock_item=stock_item)

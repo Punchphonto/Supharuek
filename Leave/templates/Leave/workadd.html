@@ -17,28 +17,30 @@
             <form method="POST" >
                 {{ form.hidden_tag() }}
                 <div class="form-group">
-                    {{ form.workname.label() }}
-                    {{ form.workname(class="form-control") }}
+                    {{ form.item_name.label() }}
+                    {{ form.item_name(class="form-control") }}
                   
                 </div>
                 <div class="form-group">
-                    {{ form.workdetail.label() }}
-                    {{ form.workdetail(class="form-control") }}
+                    {{ form.item_code.label() }}
+                    {{ form.item_code(class="form-control") }}
                    
                 </div>
                 <div class="form-group">
-                    {{ form.workplace.label() }}
-                    {{ form.workplace(class="form-control") }}
+                    {{ form.psc.label() }}
+                    {{ form.psc(class="form-control") }}
                     
                 </div>
                 <div class="form-group">
-                    {{ form.workdate.label() }}
-                    {{ form.workdate(class="form-control") }}
+                    {{ form.description.label() }}
+                    {{ form.description(class="form-control") }}
+                    
                 </div>
+           
                    
                 <button type="submit" class="btn btn-success ">
                     <i class="fas fa-calendar-plus"></i> 
-                    Submit your job
+                    Submit Item
                 </button>
               
             </form>
@@ -49,26 +51,26 @@
     <div class="col-8">
         <div class="card">
             <div class="card-header bg-warning">
-                <h4><i class="fas fa-th-list"></i>&nbsp; Working List</h4>
+                <h4><i class="fas fa-th-list"></i>&nbsp;Item in List</h4>
             </div>
             <div class="card-body">
                 <table class="table table-bordered" id="job_table">
                     <thead>
                       <th>#</th> 
-                      <th width="20%"> Job</th>
-                      <th width="45%">Detail</th>
-                      <th width="15%">Date</th>
-                      <th width="15%">place</th>                     
+                      <th width="20%">Item</th>
+                      <th width="20%">Code</th>
+                      <th width="15%">Amount</th>
+                      <th width="45%">Detial</th>                     
                     </thead>
                     <tbody>
-                     {% for job in work %}
+                     {% for item in items %}
                    
                      <tr>
                          <td>{{ loop.index }}</td>
-                         <td>{{ job.workname }}</td>
-                         <td>{{ job.workdetail }}</td>
-                         <td>{{ job.workdate }}</td>       
-                         <td>{{ job.workplace }}</td>                     
+                         <td>{{ item.itemname}}</td>
+                         <td>{{ item.rent_code}} $</td>
+                         <td>{{ item.psc }}</td>       
+                         <td>{{ item.description }}</td>                     
                      </tr>
       
                  {% endfor %}
@@ -78,7 +80,7 @@
 
             </div>
         </div>
-    </div>
+     </div>
     </div>
 
 

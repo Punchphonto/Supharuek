@@ -22,6 +22,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(50), nullable=False, unique=True)
     password = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=True)
+    userrent = db.relationship('Rentlist', backref='user', lazy=True)
     def __init__(self, username, password, email):
         self.username = username
         self.password = password
@@ -31,13 +32,24 @@ class User(db.Model, UserMixin):
     def verify_password(self, pwd):
         return (self.password, pwd)
 
-class Woringlist(db.Model):
+class Itemlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    workname = db.Column(db.String(100), nullable=True)
-    workdetail = db.Column(db.Text, nullable=True)
-    workplace = db.Column(db.String(100), nullable=True)
-    workdate = db.Column(db.Date, nullable=True)
-    remark = db.Column(db.String(100), nullable=True)
+    itemname = db.Column(db.String(length=200), nullable=False)
+    rent_code = db.Column(db.String(length=12), nullable=False, unique=True)
+    description = db.Column(db.Text, nullable=False)
+    psc = db.Column(db.Integer(), nullable=False)
+    itemrent = db.relationship('Rentlist', backref='itemlist', lazy=True)
+
+    def can_rent(self, item_obj):
+        return self.psc >= item_obj.psc
 
     def __repr__ (self):
-        return '<Work %r>' % self.id
+        return '<Item %r>' % self.id
+
+class Rentlist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tenant = db.Column(db.String(), db.ForeignKey('user.username'))
+    rent_item = db.Column(db.String(), db.ForeignKey('itemlist.id'))
+    rent_psc = db.Column(db.Integer(), nullable=False)
+
+
